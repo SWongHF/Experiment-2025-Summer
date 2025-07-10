@@ -1,0 +1,2 @@
+resnet18_original.pt filter=lfs diff=lfs merge=lfs -text
+resnet18_qt.pt filter=lfs diff=lfs merge=lfs -text
