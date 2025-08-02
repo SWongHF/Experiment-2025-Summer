@@ -1,3 +1,20 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:3a260ca57d6c939edfcc7155a006be0f40ad16ac0edfd6d2b0a405dfc3394bd6
-size 370
+import time
+
+
+class Timer:
+    def __init__(self):
+        self.times = []
+        self.start()
+
+    def start(self):
+        self.tik = time.time()
+
+    def stop(self):
+        self.times.append(time.time() - self.tik)
+        return self.times[-1]
+
+    def avg(self):
+        return sum(self.times) / len(self.times)
+
+    def sum(self):
+        return sum(self.times)

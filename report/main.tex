@@ -1,3 +1,179 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:089b60968eac324c0d7c0384dceff5c8f9b14fa0a77ee8d33453a3c11e671f84
-size 6351
+%----------------------------------------------------------------------------------------
+%    PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimpleDarkBlue}
+
+\usepackage{hyperref}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{bm}
+\DeclareMathOperator*{\argmax}{arg\,max}
+%----------------------------------------------------------------------------------------
+%    TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{Revisiting \texttt{ASkewSGD}: \\New Theoretical Guarantees for QNN Optimization}
+\subtitle{Undergraduate Summer Research Internship (2025)}
+
+\author{Presenter: WONG, Hok Fong}
+
+\institute
+{
+    Department of Computer Science and Engineering \\
+    The Chinese University of Hong Kong % Your institution for the title page
+}
+\date{\today} % Date, can be changed to a custom date
+
+%----------------------------------------------------------------------------------------
+%    PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\begin{frame}
+    % Print the title page as the first slide
+    \titlepage
+\end{frame}
+
+\begin{frame}{Overview}
+    % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+    \tableofcontents
+\end{frame}
+
+\section{Background}
+\begin{frame}{Background}
+
+    Modern neural architectures can be up to billions of parameters...
+
+    This induces problems related to...
+
+    \begin{itemize}
+        \item the available memory
+        \item the slow inference time
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Background}
+
+    How to speed up the process? \textit{Ans. Energy-Efficient Computing comes into play}.
+
+    \begin{enumerate}
+        \item Knowledge distillation;
+        \item Microarchitecture search;
+        \item Hardware \& NN-architecture co-design;
+        \item Quantization;
+        \item Pruning;
+        \item Low-rank decomposition.
+    \end{enumerate}
+
+
+    Quantization generally performs better than pruning.\footnote{Andrey Kuzmin, Markus Nagel, Mart van Baalen, Arash Behboodi, Tijkmen Blankevoort. Pruning vs. Quantization: Which is Better? In \texttt{Advances in Neural Information Processing Systems}, 2023. }
+\end{frame}
+
+\begin{frame}{Problem Formulation}
+    We are interested in solving the optimization problem related to learning a quantized neural network (QNN).
+
+    \begin{block}{The Ultimate Target}
+        \[\min_{\mathbf{w}\in\mathcal{Q}} \ell(\mathbf{w})\text{, where }\ell(\mathbf{w})=\mathbb{E}_{(\mathbf{x},y)\sim p_{\text{data}}} [\ell(f(\mathbf{x},\mathbf{w}), y)].\]
+        \begin{itemize}
+            \item $\ell:\mathbb{R}^d\to \mathbb{R}$ is the training loss;
+            \item $\mathcal{Q}$ is the set of quantized weights, e.g. $\{\pm 1\}^d$ for binary quantization;
+            \item $d$ is the number of parameters in the neural network;
+            \item $f(\mathbf{x},\mathbf{w})$ is the output of the neural network with input $\mathbf{x}$ and weights $\mathbf{w}$;
+            \item $p_{\text{data}}$ is the data distribution.
+        \end{itemize}
+    \end{block}
+
+    This is a non-convex, combinatorial optimization problem.
+\end{frame}
+
+\begin{frame}{Problem Formulation}
+    \begin{alertblock}{Modified Goal}
+        Given a continuously differentiable and reasonably smooth function $\ell$, develop an algorithm
+        with certain guarantees that converges to a close-by quantized weight of a locally, or globally, optimal
+        continuous weight with similar performance.
+    \end{alertblock}
+
+
+
+\end{frame}
+
+% \begin{frame}{Blocks of Highlighted Text}
+%     In this slide, some important text will be \alert{highlighted} because it's important. Please, don't abuse it.
+
+%     \begin{block}{Block}
+%         Sample text
+%     \end{block}
+
+%     \begin{alertblock}{Alertblock}
+%         Sample text in red box
+%     \end{alertblock}
+
+%     \begin{examples}
+%         Sample text in green box. The title of the block is ``Examples".
+%     \end{examples}
+% \end{frame}
+
+% %------------------------------------------------
+
+% \begin{frame}{Multiple Columns}
+%     \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+
+%         \column{.45\textwidth} % Left column and width
+%         \textbf{Heading}
+%         \begin{enumerate}
+%             \item Statement
+%             \item Derivation
+%             \item Example
+%         \end{enumerate}
+
+%         \column{.45\textwidth} % Right column and width
+%         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ultricies in feugiat rutrum, porttitor sit amet augue. Aliquam ut tortor mauris. Sed volutpat ante purus, quis accumsan dolor.
+
+%     \end{columns}
+% \end{frame}
+
+% %------------------------------------------------
+% \section{Second Section}
+% %------------------------------------------------
+
+% \begin{frame}{Table}
+%     \begin{table}
+%         \begin{tabular}{l l l}
+%             \toprule
+%             \textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2} \\
+%             \midrule
+%             Treatment 1         & 0.0003262           & 0.562               \\
+%             Treatment 2         & 0.0015681           & 0.910               \\
+%             Treatment 3         & 0.0009271           & 0.296               \\
+%             \bottomrule
+%         \end{tabular}
+%         \caption{Table caption}
+%     \end{table}
+% \end{frame}
+
+% %------------------------------------------------
+
+% \begin{frame}{Theorem}
+%     \begin{theorem}[Mass--energy equivalence]
+%         $E = mc^2$
+%     \end{theorem}
+% \end{frame}
+
+
+%------------------------------------------------
+
+% \begin{frame}{References}
+%     \footnotesize
+%     \bibliography{reference.bib}
+%     \bibliographystyle{apalike}
+% \end{frame}
+
+%------------------------------------------------
+
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
