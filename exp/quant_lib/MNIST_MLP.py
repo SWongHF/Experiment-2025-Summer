@@ -28,8 +28,14 @@ class MLP(nn.Module):
         else:
             mini = torch.min(data)
             maxi = torch.max(data)
+            if len(data.shape) == 2:
+                return torch.clip(
+                    torch.round(data / (maxi - mini) * (2**bit_width - 1)),
+                    -(2 ** (bit_width - 1)),
+                    2 ** (bit_width - 1) - 1,
+                )
             return torch.clip(
-                torch.round(data / (maxi - mini) * (2**bit_width - 1)),
+                torch.round(data),
                 -(2 ** (bit_width - 1)),
                 2 ** (bit_width - 1) - 1,
             )
